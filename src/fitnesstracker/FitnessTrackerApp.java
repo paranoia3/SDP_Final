@@ -24,17 +24,17 @@ public class FitnessTrackerApp {
         // Singleton config
         TrackerConfig config = TrackerConfig.getInstance();
 
-        System.out.print("Введите ваше имя: ");
+        System.out.print("Enter your name: ");
         config.setUserName(sc.nextLine());
 
-        System.out.print("Введите допустимый максимальный пульс: ");
+        System.out.print("Enter your maximum heart rate: ");
         config.setMaxHeartRate(sc.nextInt());
 
-        System.out.print("Введите порог тревоги (пульс): ");
+        System.out.print("Enter the alarm threshold (pulse): ");
         config.setAlertHeartRate(sc.nextInt());
         sc.nextLine();
 
-        System.out.println("\nВыберите цель тренировки:");
+        System.out.println("\nSelect a training goal:");
         System.out.println("1 - Fat Loss");
         System.out.println("2 - Muscle Gain");
         System.out.println("3 - Endurance");
@@ -55,10 +55,10 @@ public class FitnessTrackerApp {
         WorkoutDirector director = new WorkoutDirector(strategy);
         WorkoutPlan plan = director.createPlan(builder);
 
-        System.out.println("\n=== Ваш план тренировки ===");
+        System.out.println("\n=== Your workout plan ===");
         System.out.println(plan);
 
-        System.out.println("\nВыберите устройство:");
+        System.out.println("\nSelect device:");
         System.out.println("1 - Fitbit");
         System.out.println("2 - Apple Watch");
         System.out.println("3 - Generic Band");
@@ -84,32 +84,32 @@ public class FitnessTrackerApp {
         WorkoutSession session = new WorkoutSession(plan);
         CommandInvoker invoker = new CommandInvoker();
 
-        System.out.println("\nНажмите Enter чтобы начать тренировку...");
+        System.out.println("\nPress Enter to start training...");
         sc.nextLine();
         invoker.execute(new StartWorkoutCommand(session));
 
         // Симуляция 3 обновлений
         for (int i = 0; i < 3; i++) {
-            System.out.println("\nНажмите Enter чтобы обновить данные устройства...");
+            System.out.println("\nPress Enter to update device data...");
             sc.nextLine();
             device.pullData(type);
         }
 
         // Лог упражнений
-        System.out.print("\nВведите название упражнения: ");
+        System.out.print("\nEnter exercise name: ");
         String exName = sc.nextLine();
 
-        System.out.print("Введите кол-во повторений/минут: ");
+        System.out.print("Enter the number of repetitions/minutes: ");
         int reps = sc.nextInt();
         sc.nextLine();
 
         invoker.execute(new LogExerciseCommand(session, exName, reps));
 
-        System.out.println("\nНажмите Enter чтобы завершить тренировку...");
+        System.out.println("\nPress Enter to end the workout...");
         sc.nextLine();
 
         invoker.execute(new StopWorkoutCommand(session));
 
-        System.out.println("\n🎉 Тренировка завершена! Спасибо за использование Fitness Tracker.");
+        System.out.println("\n🎉 Workout complete! Thank you for using Fitness Tracker.");
     }
 }
