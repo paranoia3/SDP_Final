@@ -1,116 +1,130 @@
-# Fitness Tracker – Final Project
+# Fitness Tracker — Java Project (Design Patterns)
 
-This project implements a console-based **Fitness Tracker** application using 6 design patterns.  
-It simulates generating workout plans, connecting to wearable devices, receiving health data in real time, and managing workout sessions.
+This project is a console-based **Fitness Tracker** system implemented in Java.  
+It demonstrates the following six design patterns:
 
-## 🎯 Project Features
+- **Builder**
+- **Strategy**
+- **Abstract Factory**
+- **Adapter**
+- **Facade**
+- **Observer**
 
-- Create custom workout plans using Builder + Strategy
-- Connect to different wearable devices through a Facade
-- Receive live health updates using Observer
-- Start, log, and stop workouts using Command
-- Store global user settings using Singleton
-- Fully interactive console menu (OOP, MVC-style controller)
+## Team Members & Responsibilities
 
----
+### 1. Dameli Taubasar — Builder + Strategy
+- Workout plan architecture
+- WorkoutPlanBuilder
+- WorkoutDirector
+- IntensityStrategy implementations
+- Exercise + WorkoutPlan models
 
-# 🧠 Design Patterns Implemented (6 Total)
+### 2. Begimzhan Bitore — Observer + Facade
+- WearableDevice (Subject)
+- HealthData & Observers
+- DeviceFacade subsystem
 
-## 1. **Builder**
-Used to construct workout plans step-by-step.
-- `WorkoutPlanBuilder`
-- `SimpleWorkoutPlanBuilder`
-- `WorkoutDirector`
-
-## 2. **Strategy**
-Used to switch between different workout goals.
-- `FatLossStrategy`
-- `MuscleGainStrategy`
-- `EnduranceStrategy`
-
-## 3. **Observer**
-Used for live health monitoring (heart rate, steps).
-- `WearableDevice` (Subject)
-- `HeartRateConsoleObserver`
-- `AlertObserver`
-
-## 4. **Facade**
-Hides the complexity of multiple device APIs.
-- `DeviceApiFacade`
-- `FitbitApi`, `AppleWatchApi`, `GenericBandApi`
-
-## 5. **Command**
-Encapsulates workout session actions.
-- `StartWorkoutCommand`
-- `LogExerciseCommand`
-- `StopWorkoutCommand`
-- `CommandInvoker`
-
-## 6. **Singleton**
-Stores global app configuration.
-- `TrackerConfig`
+### 3. Yerkegali Yergali — Abstract Factory + Adapter
+- VendorApi interfaces
+- DeviceAdapter implementations
+- Device factories (Fitbit/AppleWatch/GenericBand)
 
 ---
 
-# 👥 Team Responsibilities (Each Student = 2 Patterns)
+# Project Structure
 
-### **Dameli Taubasar: Builder + Strategy**
-Responsible for:
-- WorkoutPlan creation
-- Exercise models
-- Strategies for workout goals
-
-### **Begimzhan Bitore: Observer + Facade**
-Responsible for:
-- Connecting devices
-- Pulling health data
-- Notifying observers
-
-### **Yerkegali Yergali: Command + Singleton**
-Responsible for:
-- Workout session logic
-- Commands (start/stop/log)
-- Global TrackerConfig
-- Application controller
-
----
-
-# ▶️ How to Run
-
-```bash
-javac -d out $(find src/main/java -name "*.java")
-java -cp out fitnesstracker.FitnessTrackerApp
+```
+src/
+ ├─ fitnesstracker/
+ │   ├─ FitnessTrackerApp.java
+ │   ├─ FitnessTrackerController.java
+ │   └─ UserConfig.java
+ │
+ ├─ model/
+ │   ├─ Exercise.java
+ │   ├─ ExerciseType.java
+ │   └─ WorkoutPlan.java
+ │
+ ├─ builder/
+ │   ├─ WorkoutPlanBuilder.java
+ │   ├─ SimpleWorkoutPlanBuilder.java
+ │   └─ WorkoutDirector.java
+ │
+ ├─ strategy/
+ │   ├─ IntensityStrategy.java
+ │   ├─ FatLossStrategy.java
+ │   ├─ MuscleGainStrategy.java
+ │   └─ EnduranceStrategy.java
+ │
+ ├─ observer/
+ │   ├─ HealthData.java
+ │   ├─ HealthDataObserver.java
+ │   ├─ WearableDevice.java
+ │   └─ AlertObserver.java
+ │
+ ├─ device/
+ │   ├─ VendorApi.java
+ │   ├─ FitbitApi.java
+ │   ├─ AppleWatchApi.java
+ │   ├─ GenericBandApi.java
+ │   ├─ DeviceAdapter.java
+ │   ├─ FitbitAdapter.java
+ │   ├─ AppleWatchAdapter.java
+ │   ├─ GenericBandAdapter.java
+ │   ├─ AbstractDeviceFactory.java
+ │   ├─ FitbitFactory.java
+ │   ├─ AppleWatchFactory.java
+ │   ├─ GenericBandFactory.java
+ │   └─ DeviceFacade.java
 ```
 
 ---
 
-# 📌 Application Flow
+# Pattern Overview
 
-1. User enters profile settings (Singleton)
-2. User selects workout plan goal (Strategy)
-3. Director builds the plan step-by-step (Builder)
-4. User selects device type (Facade)
-5. Device sends heart rate/steps → observers receive updates (Observer)
-6. User starts workout (Command)
-7. Logs exercises dynamically (Command)
-8. Ends workout
-9. Command history can be viewed
+## 1. Builder Pattern
+Used to construct a multi-step **WorkoutPlan** object.
+
+## 2. Strategy Pattern
+Used to generate different workout plans depending on the user’s goal:
+- Fat Loss
+- Muscle Gain
+- Endurance
+
+## 3. Abstract Factory Pattern
+Creates device families (VendorApi + Adapter + WearableDevice).
+
+## 4. Adapter Pattern
+Unifies the raw vendor API calls into a simple interface:
+```
+getHeartRate()
+getSteps()
+```
+
+## 5. Facade Pattern
+Provides a simplified API for device handling:
+- connect
+- pullAndNotify
+
+## 6. Observer Pattern
+Used for real-time heart rate & steps updates:
+- Subject → WearableDevice
+- Observers → Console observer + Alert observer
 
 ---
 
-# 🗂 Project Architecture (Simplified)
+# Running the Project
 
 ```
-FitnessTrackerApp
-   └── FitnessTrackerController  ← menu & flow control
-
-builder/
-model/
-strategy/
-facade/
-observer/
-command/
-config/
+javac fitnesstracker/FitnessTrackerApp.java
+java fitnesstracker.FitnessTrackerApp
 ```
 
 ---
+
+# Future Improvements
+
+- Add GUI (JavaFX)
+- Add database storage
+- Add more strategies and devices
+- Add analytics using Visitor/Decorator
