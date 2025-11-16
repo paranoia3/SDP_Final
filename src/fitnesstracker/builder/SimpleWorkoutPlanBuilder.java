@@ -1,5 +1,6 @@
 package fitnesstracker.builder;
 
+
 import fitnesstracker.model.Exercise;
 import fitnesstracker.model.ExerciseType;
 import fitnesstracker.model.WorkoutPlan;
@@ -14,27 +15,23 @@ public class SimpleWorkoutPlanBuilder implements WorkoutPlanBuilder {
     }
 
     @Override
-    public void addWarmup(String name, int durationMinutes) {
-        plan.addExercise(new Exercise(name, ExerciseType.WARMUP, durationMinutes,
-                "Light warmup to prepare your body."));
+    public void addWarmup(String name, int duration) {
+        plan.addExercise(new Exercise(name, ExerciseType.WARMUP, duration, "Warm-up exercise"));
     }
 
     @Override
-    public void addCardio(String name, int durationMinutes) {
-        plan.addExercise(new Exercise(name, ExerciseType.CARDIO, durationMinutes,
-                "Cardio to improve endurance and burn calories."));
+    public void addCardio(String name, int duration) {
+        plan.addExercise(new Exercise(name, ExerciseType.CARDIO, duration, "Cardio exercise"));
     }
 
     @Override
-    public void addStrength(String name, int durationMinutes) {
-        plan.addExercise(new Exercise(name, ExerciseType.STRENGTH, durationMinutes,
-                "Strength training to build muscle."));
+    public void addStrength(String name, int duration) {
+        plan.addExercise(new Exercise(name, ExerciseType.STRENGTH, duration, "Strength exercise"));
     }
 
     @Override
-    public void addCooldown(String name, int durationMinutes) {
-        plan.addExercise(new Exercise(name, ExerciseType.COOLDOWN, durationMinutes,
-                "Cooldown to relax muscles and lower heart rate."));
+    public void addCooldown(String name, int duration) {
+        plan.addExercise(new Exercise(name, ExerciseType.COOLDOWN, duration, "Cooldown exercise"));
     }
 
     @Override

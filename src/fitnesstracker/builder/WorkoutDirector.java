@@ -4,7 +4,6 @@ import fitnesstracker.model.WorkoutPlan;
 import fitnesstracker.strategy.IntensityStrategy;
 
 public class WorkoutDirector {
-
     private final IntensityStrategy strategy;
 
     public WorkoutDirector(IntensityStrategy strategy) {

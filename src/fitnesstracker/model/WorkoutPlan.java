@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WorkoutPlan {
-
     private final String goal;
     private final List<Exercise> exercises = new ArrayList<>();
 
@@ -12,34 +11,32 @@ public class WorkoutPlan {
         this.goal = goal;
     }
 
-    public void addExercise(Exercise exercise) {
-        exercises.add(exercise);
-    }
-
     public String getGoal() {
         return goal;
     }
 
     public List<Exercise> getExercises() {
-        return new ArrayList<>(exercises);
+        return exercises;
+    }
+
+    public void addExercise(Exercise exercise) {
+        exercises.add(exercise);
     }
 
     public int getTotalDuration() {
-        int sum = 0;
+        int total = 0;
         for (Exercise e : exercises) {
-            sum += e.getDurationMinutes();
+            total += e.getDurationMinutes();
         }
-        return sum;
+        return total;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("Goal: ")
-                .append(goal)
-                .append("\nTotal duration: ")
-                .append(getTotalDuration())
-                .append(" minutes\nExercises:\n");
-
+        StringBuilder sb = new StringBuilder();
+        sb.append("Goal: ").append(goal).append("\n");
+        sb.append("Total duration: ").append(getTotalDuration()).append(" min\n");
+        sb.append("Exercises:\n");
         for (Exercise e : exercises) {
             sb.append(" - ").append(e).append("\n");
         }

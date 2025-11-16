@@ -1,7 +1,6 @@
 package fitnesstracker.observer;
 
 public class HealthData {
-
     private final int heartRate;
     private final int steps;
 

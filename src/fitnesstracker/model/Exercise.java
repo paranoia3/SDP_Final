@@ -1,7 +1,6 @@
 package fitnesstracker.model;
 
 public class Exercise {
-
     private final String name;
     private final ExerciseType type;
     private final int durationMinutes;
